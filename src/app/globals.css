@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palet TIFKREATIF */
+  --color-navy: #101828;
+  --color-navy-soft: #344054;
+  --color-navy-mist: #475467;
+  --color-red: #d92d3a;
+  --color-red-deep: #b41f2b;
+  --color-red-tint: #fbe9ea;
+  --color-gold: #f4b740;
+  --color-gold-tint: #fdf0d5;
+  --color-bone: #fff8ed;
+  --color-sand: #f2e7d5;
+  --color-sand-line: #e6d9c3;
+  --color-green: #15803d;
+  --color-green-tint: #e7f4ec;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 0.875rem;
+  --radius-control: 0.5rem;
+
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.05), 0 6px 20px -8px rgb(16 24 40 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 24 40 / 0.06), 0 14px 34px -10px rgb(16 24 40 / 0.2);
+}
+
+:root { color-scheme: light; }
+
+body {
+  @apply bg-bone text-navy font-sans antialiased;
+}
+
+/* Fokus keyboard yang jelas di seluruh aplikasi */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+::selection { background: var(--color-gold); color: var(--color-navy); }
+
+/* ── Motif khas: strip "tenun" Madura ─────────────────────────────
+   Garis diagonal merah–navy–emas tipis, dipakai hemat sebagai aksen
+   (tepi hero, pembatas section) — bukan dekorasi penuh halaman. */
+.batik-strip {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--color-red) 0 10px,
+    var(--color-navy) 10px 14px,
+    var(--color-gold) 14px 24px,
+    var(--color-navy) 24px 28px
+  );
+}
+
+/* Pola titik samar untuk latar section gelap */
+.dot-field {
+  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Utilitas kecil */
+.container-tif { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+
+.eyebrow { @apply text-xs font-bold uppercase tracking-[0.18em] text-red; }
+
+.link-quiet { @apply underline decoration-sand-line underline-offset-4 transition-colors hover:decoration-red hover:text-red; }
+
+.scroll-slim { scrollbar-width: thin; scrollbar-color: var(--color-sand-line) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
