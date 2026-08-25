@@ -1,11 +1,17 @@
 import "server-only";
 import Database from "better-sqlite3";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { SCHEMA_SQL } from "./schema";
 import { runSeed } from "./seed";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Vercel's deployed bundle is read-only; use its writable temporary directory.
+// SQLite remains suitable for the MVP/demo, but data is not durable across
+// serverless instance lifetimes and should be migrated to Supabase for production.
+const DATA_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), "tifkreatif-data")
+  : path.join(process.cwd(), "data");
 const DB_PATH = path.join(DATA_DIR, "tifkreatif.db");
 export const UPLOAD_DIR = path.join(DATA_DIR, "uploads");
 
